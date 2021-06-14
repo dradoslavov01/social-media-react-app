@@ -5,7 +5,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import { login } from '../../services'
 
-const LoginPage = () => {
+const LoginPage = ({
+    history
+}) => {
     const [errorHandler, setErrorHandler] = useState('');
 
     const onLoginFormSubmitHandler = (e) => {
@@ -22,8 +24,10 @@ const LoginPage = () => {
             .then(res => {
                 if(res.data === 'email') {
                     setErrorHandler('Incorrect email');
+                    return;
                 } else if(res.data === 'pass') {
                     setErrorHandler('Incorrect password')
+                    return;
                 }
 
                 const token = res.data.token;
@@ -33,6 +37,7 @@ const LoginPage = () => {
                     localStorage.setItem('token', token);
                     localStorage.setItem('username', username);
                 }
+                history.push('/');
             })
             .catch(err => alert(err))
 

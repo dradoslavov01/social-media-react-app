@@ -1,0 +1,67 @@
+%info {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+
+    p {
+        margin-left: 10px;
+        font-size: 19px;
+        margin: 5px;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            margin: 0 auto;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .username,
+        .fullName,
+        .age,
+        .city {
+            @extend %info;
+        }
+
+        button {
+            width: 110px;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 3px 0;
+            outline: none;
+            font-size: 15px;
+            font-weight: 550;
+            margin-right: 8px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .galery {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 100px 50px;
+        img {
+            width: 300px;
+            height: 300px;
+            margin: 15px;
+        }
+    }
+}
