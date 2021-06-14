@@ -19,6 +19,8 @@ const LoginPage = () => {
         }
 
         login({ email: e.target.email.value, password: e.target.password.value })
+            .then(res => setErrorHandler(res.data))
+            .catch(err => alert(err))
 
     };
 
