@@ -2,12 +2,14 @@ const express = require('express');
 const db = require('./dbConnection');
 const cors = require('cors');
 const routes = require('./routes');
+const { auth } = require('./middlewares/auth');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use('/api', routes);
+app.use(auth);
 
 db.on('err', () => console.log('connection error'));
 db.once('open', () => {

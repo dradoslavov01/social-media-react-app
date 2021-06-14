@@ -21,9 +21,17 @@ const LoginPage = () => {
         login(email, password)
             .then(res => {
                 if(res.data === 'email') {
-                    setErrorHandler('Incorrect email')
+                    setErrorHandler('Incorrect email');
                 } else if(res.data === 'pass') {
                     setErrorHandler('Incorrect password')
+                }
+
+                const token = res.data.token;
+                const username = res.data.username
+
+                if(token) {
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('username', username);
                 }
             })
             .catch(err => alert(err))

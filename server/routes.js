@@ -1,7 +1,7 @@
-const router = require('express').Router();
+const route = require('express').Router();
 
-const authController = require('./controllers/authController')
+const { router } = require('./controllers/authController')
 
-router.use(authController);
+route.use(router);
 
-module.exports = router;
+module.exports = route;

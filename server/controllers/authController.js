@@ -3,8 +3,9 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-router.post('/register', async (req, res) => {
+const secretKey = '662sadd82312cc99810sa0a88b';
 
+router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
         const salt = await bcrypt.genSalt();
@@ -39,13 +40,12 @@ router.post('/login', async (req, res) => {
         if (user) {
             bcrypt.compare(password, user.password, function (err, response) {
                 if (response) {
-                    const authToken = jwt.sign({
+                    const token = jwt.sign({
                         _id: user._id,
                         username: user.username,
-                    }, '662sadd82312cc99810sa0a88b');
+                    }, secretKey);
 
-                    res.status(200).json({ authToken });
-
+                    res.status(200).json({ token, username: user.username });
                 } else {
                     res.send('pass');
                 };
@@ -56,6 +56,9 @@ router.post('/login', async (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = {
+    secretKey,
+    router
+};
 
 
