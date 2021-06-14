@@ -17,7 +17,7 @@ const RegisterPage = () => {
         const password = e.target.password.value;
         const rePass = e.target.rePass.value;
 
-        
+
         if (!username || !email || !password || !rePass) {
             return setErrorHandler('All fields are required!');
         }
@@ -25,7 +25,7 @@ const RegisterPage = () => {
         if (password !== rePass) {
             return setErrorHandler('Passwords don\'t match!');
         }
-        register( {username: e.target.username.value, email: e.target.email.value, password: e.target.password.value })
+        register(username, email, password)
             .then(res => {
                 res.data === 'bad' ? setErrorHandler('Email already exist!') : setErrorHandler(null);
             })

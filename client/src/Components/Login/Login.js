@@ -18,8 +18,14 @@ const LoginPage = () => {
             return setErrorHandler('All fields are required!');
         }
 
-        login({ email: e.target.email.value, password: e.target.password.value })
-            .then(res => setErrorHandler(res.data))
+        login(email, password)
+            .then(res => {
+                if(res.data === 'email') {
+                    setErrorHandler('Incorrect email')
+                } else if(res.data === 'pass') {
+                    setErrorHandler('Incorrect password')
+                }
+            })
             .catch(err => alert(err))
 
     };

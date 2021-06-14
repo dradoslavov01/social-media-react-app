@@ -9,6 +9,11 @@ export const login = (email, password) => {
     return axios.post('/login', data);
 }
 
-export const register = (data) => {
+export const register = (username, email, password) => {
+    const data = {
+        username,
+        email,
+        password
+    }
     return axios.post('/register', data);
 }

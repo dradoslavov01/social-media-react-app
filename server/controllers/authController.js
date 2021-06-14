@@ -4,10 +4,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 router.post('/register', async (req, res) => {
-     
+
     try {
         const { username, email, password } = req.body;
-         console.log(password)
         const salt = await bcrypt.genSalt();
         const hashedPass = await bcrypt.hash(password, salt);
 
@@ -22,7 +21,7 @@ router.post('/register', async (req, res) => {
                 });
                 newUser.save()
                     .then(createdUser => {
-                        res.status(201).send(createdUser._id)
+                        res.status(201).send(createdUser._id);
                     })
                     .catch((err) => console.log(err));
             };
@@ -32,6 +31,31 @@ router.post('/register', async (req, res) => {
     };
 
 });
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    User.findOne({ email }).then(user => {
+        if (user) {
+            bcrypt.compare(password, user.password, function (err, response) {
+                if (response) {
+                    const authToken = jwt.sign({
+                        _id: user._id,
+                        username: user.username,
+                    }, '662sadd82312cc99810sa0a88b');
+
+                    res.status(200).json({ authToken });
+
+                } else {
+                    res.send('pass');
+                };
+            });
+        } else {
+            res.send('email');
+        };
+    });
+});
+
 module.exports = router;
 
 
