@@ -1,8 +1,8 @@
 %icons {
-    color: black;
     width: 30px;
     height: 30px;
 }
+
 
 .header {
     display: flex;
@@ -11,9 +11,13 @@
     border-bottom: 1px solid #ccc;
     padding-bottom: 20px;
 
+    h2 a {
+        text-decoration: none;
+        color: black;
+    }
 
     .navbar {
-        ul {
+        .desktopNavbar {
             display: flex;
             list-style: none;
             justify-content: space-evenly;
@@ -22,8 +26,10 @@
             .homeIcon,
             .chatIcon,
             .favIcon {
+                color: black;
                 @extend %icons
             }
+
         }
     }
 
@@ -45,5 +51,50 @@
             margin-left: 5px;
             font-size: 27px;
         }
+    }
+}
+
+.mobileNavbar {
+    display: none;
+
+    .homeIcon,
+    .chatIcon,
+    .favIcon {
+        color: white;
+        @extend %icons
+    }
+
+}
+
+@media only screen and (max-width:600px) {
+    .header {
+        flex-direction: column;
+
+        h2 {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .searchForm {
+            margin-left: 20px;
+        }
+
+        .desktopNavbar {
+            display: none !important;
+
+        }
+    }
+
+
+
+    .mobileNavbar {
+        display: flex;
+        list-style-type: none;
+        justify-content: space-around;
+        background-color: black;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+
     }
 }

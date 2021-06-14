@@ -16,19 +16,19 @@ const ProfilePage = () => {
             <div className={style.info}>
                 <img src={profileImage} alt="profileImg" />
                 <div className={style.username}>
-                    <h3>Username:</h3>
+                    <h4>Username:</h4>
                     <p>{username}</p>
                 </div>
                 <div className={style.fullName}>
-                    <h3>Name:</h3>
+                    <h4>Name:</h4>
                     <p>Yordan Radoslavov</p>
                 </div>
                 <div className={style.age}>
-                    <h3>Age:</h3>
+                    <h4>Age:</h4>
                     <p>20</p>
                 </div>
                 <div className={style.city}>
-                    <h3>City:</h3>
+                    <h4>City:</h4>
                     <p>Sofia</p>
                 </div>
                 <div className={style.buttons}>
@@ -38,6 +38,7 @@ const ProfilePage = () => {
                 </div>
             </div>
             <div className={style.galery}>
+                <img src={image} alt="img" />
                 <img src={image} alt="img" />
                 <img src={image} alt="img" />
                 <img src={image} alt="img" />

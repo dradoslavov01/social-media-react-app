@@ -12,7 +12,7 @@ function App(props) {
 
    return (
       <div className="app">
-         <Route path="/" component={NavigationPage} />
+         <Route path="/"  component={NavigationPage} />
          <Route path="/profile" component={isAuth(ProfilePage)} />
          {user
             ? <>

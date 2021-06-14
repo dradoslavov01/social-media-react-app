@@ -1,12 +1,13 @@
 %info {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 0 auto;
+    margin-top: 5px;
 
     p {
         margin-left: 10px;
-        font-size: 19px;
-        margin: 5px;
+        font-size: 18px;
     }
 }
 
@@ -58,10 +59,26 @@
         align-items: center;
         justify-content: center;
         margin: 100px 50px;
+
         img {
             width: 300px;
             height: 300px;
             margin: 15px;
+        }
+    }
+}
+
+@media only screen and (max-width:600px) {
+    .container {
+        .galery {
+            margin: 100px 0;
+            justify-content: flex-start;
+
+            img {
+                width: 123px;
+                height: 123px;
+                margin: 1px;
+            }
         }
     }
 }
