@@ -1,0 +1,48 @@
+%icons {
+    color: black;
+    width: 30px;
+    height: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+
+    .navbar {
+        ul {
+            display: flex;
+            list-style: none;
+            justify-content: space-evenly;
+            width: 200px;
+
+            .homeIcon,
+            .chatIcon,
+            .favIcon {
+                @extend %icons
+            }
+        }
+    }
+
+    .searchForm {
+        display: flex;
+        align-items: center;
+
+        input[name="search"] {
+            padding: 3px;
+            outline: none;
+        }
+
+        input[name="submitBtn"] {
+            padding: 3px;
+            margin-left: 10px;
+        }
+
+        .searchIcon {
+            margin-left: 5px;
+            font-size: 27px;
+        }
+    }
+}
