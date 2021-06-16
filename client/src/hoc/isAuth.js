@@ -8,7 +8,7 @@ const isAuth = (WrappedComponent) => {
         const history = useHistory();
 
         if (token === null) {
-            history.push('/register') || history.push('/login')
+            history.push('/register') || history.push('/login');
             return null;
         } else {
 

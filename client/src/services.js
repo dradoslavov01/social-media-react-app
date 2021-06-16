@@ -16,4 +16,9 @@ export const register = (username, email, password) => {
         password
     }
     return axios.post('/register', data);
+
+}
+
+export const uploadImg = () => {
+    
 }

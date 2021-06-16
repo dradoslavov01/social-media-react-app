@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { secretKey } = require('../controllers/authController')
 
 function auth(req, res, next) {
     console.log('asdasdasd');
@@ -8,7 +7,7 @@ function auth(req, res, next) {
         const token = authorizatonHeader.spli(' ')[1];
 
         try {
-            const decoded = jwt.verify(token, secretKey);
+            const decoded = jwt.verify(token, process.env.SECRET_KEY);
             req.user = decoded;
         } catch (err) {
             return next();

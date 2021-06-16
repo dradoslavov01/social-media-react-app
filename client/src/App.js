@@ -1,5 +1,5 @@
 import './App.scss';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 
 import NavigationPage from './Components/Header/Navigation';
 import RegisterPage from './Components/Register/Register';
@@ -9,6 +9,11 @@ import isAuth from './hoc/isAuth';
 
 function App(props) {
    const user = localStorage.getItem('token');
+   const history = useHistory();
+   
+   if(user === null) {
+      history.push('/login');
+   };
 
    return (
       <div className="app">
