@@ -1,15 +1,14 @@
 const jwt = require('jsonwebtoken');
 
 function auth(req, res, next) {
-    console.log('asdasdasd');
     const authorizatonHeader = req.get('Authorization');
     if (authorizatonHeader) {
-        const token = authorizatonHeader.spli(' ')[1];
-
+        const token = authorizatonHeader.split(' ')[1];
         try {
             const decoded = jwt.verify(token, process.env.SECRET_KEY);
             req.user = decoded;
         } catch (err) {
+            console.log('unAuthorized');
             return next();
         };
     };

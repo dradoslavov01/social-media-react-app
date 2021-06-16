@@ -1,13 +1,46 @@
 import style from './Profile.module.scss';
+import { useState } from 'react';
 import profileImage from '../../assets/profile.jpg';
-import image from '../../assets/dakata.jpg';
+import img from '../../assets/dakata.jpg';
+import { uploadImage } from '../../services';
+
 
 const ProfilePage = () => {
+
+    const [fileData, setFileData] = useState(null);
 
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         window.location.reload();
+    };
+
+    const fileSelectHandler = (e) => {
+        const value = (e.target.files[0]);
+        setFileData(value);
+  
+    };
+
+    const fileUploadHandler = (e) => {
+        e.preventDefault();
+        if (
+            (fileData && fileData.type === "image/png") ||
+            fileData.type === "image/jpeg" ||
+            fileData.type === "image/jpg"
+        ) {
+
+            const data = new FormData();
+            data.append("file", fileData);
+
+            uploadImage(data)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+
+        };
     }
 
     const username = localStorage.getItem('username');
@@ -32,23 +65,26 @@ const ProfilePage = () => {
                     <p>Sofia</p>
                 </div>
                 <div className={style.buttons}>
-                    <button>Add a photo</button>
-                    <button>Edit info</button>
-                    <button onClick={logout} >Logout</button>
+                    <form onSubmit={fileUploadHandler}>
+                        <input type="file" name="upload" onChange={fileSelectHandler} />
+                        <button>Upload</button>
+                        <button>Edit info</button>
+                        <button onClick={logout} >Logout</button>
+                    </form>
                 </div>
             </div>
             <div className={style.galery}>
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
-                <img src={image} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
+                <img src={img} alt="img" />
             </div>
         </div>
     );

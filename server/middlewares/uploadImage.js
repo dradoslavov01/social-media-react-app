@@ -5,17 +5,16 @@ const storage = new GridFsStorage({
     url: process.env.DB_CONNECTION_STRING,
     options: { useNewUrlParser: true, useUnifiedTopology: true },
     file: (req, file) => {
-        const match = ["image/png", "image/jpeg", "image.jpg"];
-
+        const match = ["image/png", "image/jpeg", "image/jpg"];
         if (match.indexOf(file.mimetype) === -1) {
-            const filename = `${Date.now()}-${file.originalname}`;
+            const filename = file.originalname;
             return filename;
         }
         return {
             bucketName: "photos",
-            filename: `${Date.now()}-${file.originalname}`
+            filename: file.originalname
         }
     }
-})
+});
 
 module.exports = multer({ storage });

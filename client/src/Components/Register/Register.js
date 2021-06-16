@@ -6,7 +6,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
 import { register } from '../../services'
 
-const RegisterPage = () => {
+const RegisterPage = ({
+    history
+}) => {
 
     const [errorHandler, setErrorHandler] = useState('');
 
@@ -28,6 +30,7 @@ const RegisterPage = () => {
         register(username, email, password)
             .then(res => {
                 res.data === 'bad' ? setErrorHandler('Email already exist!') : setErrorHandler(null);
+                history.push('/login')
             })
             .catch(err => alert(err));
 
