@@ -59,15 +59,22 @@ app.post('/images', auth, (req, res) => {
         if (done) {
             res.send('uploaded successfully')
         } else {
-            res.send('Error in uploading')
+            res.send('Error in uploading');
         }
     })
 })
 
-app.delete('/deletePhoto', auth, (req, res) => {
+app.post('/deletePhoto', auth, (req, res) => {
     const userId = req.user._id;
     const id = req.body.id;
-    User.findOneAndUpdate({ _id: userId }, {$pull : {photos: {id: id}}});
+    console.log(id);
+    User.findOneAndUpdate({ _id: userId }, { $pull: { photos: { id: id} } }, (err, data) =>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send(data);
+        }
+    });
 })
 
 

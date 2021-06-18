@@ -13,7 +13,7 @@ const ProfilePage = () => {
             setPhotos(res.data)
         })
             .catch(err => console.log('Couldnt load images'))
-    }, [photos])
+    }, [])
     const [fileData, setFileData] = useState(null);
 
     const logout = () => {
@@ -52,10 +52,12 @@ const ProfilePage = () => {
         }
     }
     const deletePhoto = (id) => {
-        axios.delete('deletePhoto', id)
+        axios.post('deletePhoto', {id});
+        /* window.location.reload() */
     }
     const sendPhoto = (url) => {
         axios.post('images', { url })
+
     }
     const username = localStorage.getItem('username');
     return (
@@ -91,10 +93,10 @@ const ProfilePage = () => {
 
                 {photos.slice(0).reverse().map(photo => {
                     return (
-                        <>
+                        <div key={photo.id}>
                             <img src={photo.url} alt='default' />
-                            <button onCLick={deletePhoto(photo.id)}> Delete photo</button>
-                        </>
+                            <button onClick={() => deletePhoto(photo.id)}> Delete photo</button>
+                        </div>
                     )
 
                 })}
