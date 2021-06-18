@@ -1,9 +1,9 @@
 const route = require('express').Router();
 
 const authController  = require('./controllers/authController');
-const uploadController = require('./controllers/uploadController');
+const photosController = require('./controllers/photosController');
 
 route.use(authController);
-// route.use("/file", uploadController);
+route.use(photosController);
 
 module.exports = route;

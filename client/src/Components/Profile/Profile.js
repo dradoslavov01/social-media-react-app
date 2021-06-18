@@ -1,20 +1,24 @@
 import style from './Profile.module.scss';
 import { useState, useEffect } from 'react';
 import profileImage from '../../assets/profile.jpg';
-import img from '../../assets/dakata.jpg';
-import { uploadImage } from '../../services';
-import axios from 'axios';
+import { uploadPhoto, getPhotos, sendPhoto, deletePhoto } from '../../services';
 
 const ProfilePage = () => {
+
     const [photos, setPhotos] = useState([]);
     const [currentUpload, setCurrentUpload] = useState()
-    useEffect(() => {
-        axios.get('photos').then(res => {
-            setPhotos(res.data)
-        })
-            .catch(err => console.log('Couldnt load images'))
-    }, [])
     const [fileData, setFileData] = useState(null);
+
+    const username = localStorage.getItem('username');
+
+    useEffect(() => {
+        getPhotos()
+            .then(res => {
+                setPhotos(res.data)
+            })
+            .catch(err => console.log('Couldnt load photos'));
+    }, [currentUpload])
+
 
     const logout = () => {
         localStorage.removeItem('token');
@@ -40,7 +44,7 @@ const ProfilePage = () => {
                 const data = new FormData();
                 data.append("file", fileData);
 
-                uploadImage(data)
+                uploadPhoto(data)
                     .then((res) => {
                         sendPhoto(res.data)
                         setCurrentUpload(null);
@@ -49,17 +53,11 @@ const ProfilePage = () => {
                         console.log(err.message);
                     });
             };
-        }
-    }
-    const deletePhoto = (id) => {
-        axios.post('deletePhoto', {id});
-        /* window.location.reload() */
-    }
-    const sendPhoto = (url) => {
-        axios.post('images', { url })
+        } else {
+            console.log('You must select a file!');
+        };
+    };
 
-    }
-    const username = localStorage.getItem('username');
     return (
         <div className={style.container}>
             <div className={style.info}>
