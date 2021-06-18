@@ -1,12 +1,19 @@
 import style from './Profile.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import profileImage from '../../assets/profile.jpg';
 import img from '../../assets/dakata.jpg';
 import { uploadImage } from '../../services';
-
+import axios from 'axios';
 
 const ProfilePage = () => {
-
+    const [photos, setPhotos] = useState([]);
+    const [currentUpload, setCurrentUpload] = useState()
+    useEffect(() => {
+        axios.get('photos').then(res => {
+            setPhotos(res.data)
+        })
+            .catch(err => console.log('Couldnt load images'))
+    }, [photos])
     const [fileData, setFileData] = useState(null);
 
     const logout = () => {
@@ -18,31 +25,38 @@ const ProfilePage = () => {
     const fileSelectHandler = (e) => {
         const value = (e.target.files[0]);
         setFileData(value);
-  
+        setCurrentUpload(e.target.value);
     };
 
     const fileUploadHandler = (e) => {
         e.preventDefault();
-        if (
-            (fileData && fileData.type === "image/png") ||
-            fileData.type === "image/jpeg" ||
-            fileData.type === "image/jpg"
-        ) {
+        if (currentUpload) {
+            if (
+                (fileData && fileData.type === "image/png") ||
+                fileData.type === "image/jpeg" ||
+                fileData.type === "image/jpg"
+            ) {
 
-            const data = new FormData();
-            data.append("file", fileData);
+                const data = new FormData();
+                data.append("file", fileData);
 
-            uploadImage(data)
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-
-        };
+                uploadImage(data)
+                    .then((res) => {
+                        sendPhoto(res.data)
+                        setCurrentUpload(null);
+                    })
+                    .catch((err) => {
+                        console.log(err.message);
+                    });
+            };
+        }
     }
-
+    const deletePhoto = (id) => {
+        axios.delete('deletePhoto', id)
+    }
+    const sendPhoto = (url) => {
+        axios.post('images', { url })
+    }
     const username = localStorage.getItem('username');
     return (
         <div className={style.container}>
@@ -66,7 +80,7 @@ const ProfilePage = () => {
                 </div>
                 <div className={style.buttons}>
                     <form onSubmit={fileUploadHandler}>
-                        <input type="file" name="upload" onChange={fileSelectHandler} />
+                        <input type="file" name="upload" onChange={e => fileSelectHandler(e)} />
                         <button>Upload</button>
                         <button>Edit info</button>
                         <button onClick={logout} >Logout</button>
@@ -74,17 +88,16 @@ const ProfilePage = () => {
                 </div>
             </div>
             <div className={style.galery}>
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
-                <img src={img} alt="img" />
+
+                {photos.slice(0).reverse().map(photo => {
+                    return (
+                        <>
+                            <img src={photo.url} alt='default' />
+                            <button onCLick={deletePhoto(photo.id)}> Delete photo</button>
+                        </>
+                    )
+
+                })}
             </div>
         </div>
     );

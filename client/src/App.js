@@ -16,13 +16,11 @@ function App(props) {
    };
 
    useEffect(() => {
-
-      axios.get('/file/:filename').then(res => console.log(res.data));
-
       axios
          .get("user")
          .then((res) => {
             /* props.setCurrentUser(res.data); */
+            console.log(res.data);
          })
          .catch((err) => console.log(err));
 

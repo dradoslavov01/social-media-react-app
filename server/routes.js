@@ -4,6 +4,6 @@ const authController  = require('./controllers/authController');
 const uploadController = require('./controllers/uploadController');
 
 route.use(authController);
-route.use("/file", uploadController);
+// route.use("/file", uploadController);
 
 module.exports = route;
