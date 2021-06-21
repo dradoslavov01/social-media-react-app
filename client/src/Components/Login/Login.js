@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import { login } from '../../services';
-import axios from 'axios';
 
 const LoginPage = ({
     history

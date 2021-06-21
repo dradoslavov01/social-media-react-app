@@ -1,0 +1,25 @@
+.singlePhoto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .deleteIcon {
+        color: red;
+        width: 30px;
+        height: 30px;
+
+        &:hover {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+    }
+}
+
+@media only screen and (max-width:600px) {
+    .singlePhoto {
+        .deleteIcon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

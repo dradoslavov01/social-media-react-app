@@ -32,7 +32,10 @@ export const getPhotos = () => {
 }
 
 export const deletePhoto = (id) => {
-    return axios.post('/deletePhoto', { id })
+    const confirm = window.confirm('Are you sure you want to delete this photo?');
+    if (confirm) {
+        return axios.post('/deletePhoto', { id });
+    }
 }
 
 
